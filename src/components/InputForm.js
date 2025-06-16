@@ -18,7 +18,7 @@ const InputForm = ({ onSubmit, isLoading }) => {
           className="form-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="describe your aesthetic + environment"
+          placeholder="describe your ideal aura farm .."
           rows="4"
           disabled={isLoading}
         />
