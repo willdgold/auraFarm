@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import InputForm from './components/InputForm';
 import ResponseBox from './components/ResponseBox';
+import { Analytics } from '@vercel/analytics/react';
 import './App.css';
 
 function App() {
@@ -46,21 +47,21 @@ function App() {
       <header className="App-header">
         <h1>Aura Farming Manual</h1>
       </header>
-      
+
       <main className="App-main">
         <div className="container">
-          <InputForm 
-            onSubmit={handleSubmit} 
-            isLoading={isLoading} 
-          />
+          <InputForm onSubmit={handleSubmit} isLoading={isLoading} />
           <ResponseBox 
-            response={response} 
-            isLoading={isLoading} 
-            error={error} 
+            response={response}
+            isLoading={isLoading}
+            error={error}
             onReset={handleReset}
           />
         </div>
       </main>
+
+      {/* ✅ Add Vercel Analytics here */}
+      <Analytics />
     </div>
   );
 }
