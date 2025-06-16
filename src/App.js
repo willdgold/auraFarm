@@ -1,23 +1,66 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import InputForm from './components/InputForm';
+import ResponseBox from './components/ResponseBox';
 import './App.css';
 
 function App() {
+  const [response, setResponse] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (userInput) => {
+    setIsLoading(true);
+    setError('');
+    setResponse(null);
+
+    try {
+      const res = await fetch('/api/generate-farm-vibe-ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ input: userInput }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`);
+      }
+
+      const data = await res.json();
+      setResponse(data);
+    } catch (err) {
+      setError(err.message);
+      console.error('Error:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleReset = () => {
+    setResponse(null);
+    setError('');
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>aesthetic.exe</h1>
       </header>
+      
+      <main className="App-main">
+        <div className="container">
+          <InputForm 
+            onSubmit={handleSubmit} 
+            isLoading={isLoading} 
+          />
+          <ResponseBox 
+            response={response} 
+            isLoading={isLoading} 
+            error={error} 
+            onReset={handleReset}
+          />
+        </div>
+      </main>
     </div>
   );
 }

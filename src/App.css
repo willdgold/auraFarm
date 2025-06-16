@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
 .App {
-  text-align: center;
+  min-height: 100vh;
+  background: #0a0a0a;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
 }
 
 .App-logo {
@@ -14,14 +19,88 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(20px);
+  padding: 1.5rem 1rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.App-header h1 {
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
+}
+
+.App-header p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #6b8e5a;
+}
+
+.header-sparkles {
+  position: relative;
+  z-index: 2;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 2rem;
+  font-size: 2rem;
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+.header-sparkles span {
+  animation: float 2s ease-in-out infinite;
+}
+
+.header-sparkles span:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+.header-sparkles span:nth-child(3) {
+  animation-delay: -1s;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.App-main {
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 480px) {
+  .App-header {
+    padding: 1.25rem 1rem 0.75rem;
+  }
+  
+  .App-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .App-main {
+    padding: 1.5rem 1rem;
+  }
+  
+  .container {
+    max-width: 100%;
+  }
 }
 
 .App-link {

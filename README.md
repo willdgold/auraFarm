@@ -1,70 +1,213 @@
-# Getting Started with Create React App
+# 🌱 Farming Solver
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern web application that provides expert farming advice powered by AI. Users can ask farming-related questions and receive real-time responses through an intuitive interface.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Real-time Q&A**: Ask farming questions and get instant responses
+- **Modern UI**: Clean, responsive design with smooth animations
+- **Smart Responses**: Intelligent keyword matching for relevant farming advice
+- **Mobile Friendly**: Fully responsive design for all devices
+- **Error Handling**: Graceful error handling and loading states
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Frontend
+- React 19
+- CSS3 with modern styling
+- Responsive design
+- State management with hooks
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend
+- Node.js with Express
+- RESTful API
+- CORS enabled
+- Mock responses (with OpenAI integration ready)
 
-### `npm test`
+## Project Structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+farming-solver/
+├── src/
+│   ├── components/
+│   │   ├── InputForm.js         # Question input component
+│   │   ├── InputForm.css        # Styling for input form
+│   │   ├── ResponseBox.js       # Response display component
+│   │   └── ResponseBox.css      # Styling for response box
+│   ├── App.js                   # Main application component
+│   ├── App.css                  # Main application styles
+│   └── index.js                 # Application entry point
+├── server/
+│   ├── server.js                # Express server
+│   └── package.json             # Server dependencies
+├── public/                      # Static assets
+└── package.json                 # Frontend dependencies
+```
 
-### `npm run build`
+## Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Node.js (v14 or higher)
+- npm or yarn
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation
 
-### `npm run eject`
+1. **Clone the repository** (or navigate to the project directory)
+   ```bash
+   cd farming-solver
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. **Install frontend dependencies**
+   ```bash
+   npm install
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. **Install backend dependencies**
+   ```bash
+   cd server
+   npm install
+   cd ..
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Running the Application
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### Method 1: Run Frontend and Backend Separately
 
-## Learn More
+1. **Start the backend server** (in one terminal):
+   ```bash
+   npm run server
+   ```
+   This will start the API server on http://localhost:5000
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. **Start the frontend** (in another terminal):
+   ```bash
+   npm start
+   ```
+   This will start the React app on http://localhost:3000
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Method 2: Development Mode
 
-### Code Splitting
+1. **Start the backend in development mode**:
+   ```bash
+   npm run dev
+   ```
+   This uses nodemon for auto-restart on changes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. **Start the frontend** (in another terminal):
+   ```bash
+   npm start
+   ```
 
-### Analyzing the Bundle Size
+### Using the Application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Open your browser and navigate to `http://localhost:3000`
+2. Type your farming question in the text area
+3. Click "Ask Question" to get advice
+4. The response will appear in the response box below
 
-### Making a Progressive Web App
+## Sample Questions to Try
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- "How do I improve my soil health?"
+- "When should I plant tomatoes?"
+- "What's the best way to water my garden?"
+- "How do I deal with pests naturally?"
+- "What fertilizer should I use?"
 
-### Advanced Configuration
+## API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### POST /api/ask
+Submit a farming question and receive advice.
 
-### Deployment
+**Request Body:**
+```json
+{
+  "question": "How do I improve soil health?"
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+**Response:**
+```json
+{
+  "answer": "To improve soil health, focus on adding organic matter like compost..."
+}
+```
 
-### `npm run build` fails to minify
+### GET /api/health
+Health check endpoint to verify the API is running.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Response:**
+```json
+{
+  "status": "OK",
+  "message": "Farming Solver API is running"
+}
+```
+
+## Integration with OpenAI (Optional)
+
+To use real AI responses instead of mock data:
+
+1. Get an OpenAI API key from https://platform.openai.com/
+2. Create a `.env` file in the `server` directory:
+   ```
+   OPENAI_API_KEY=your_api_key_here
+   ```
+3. Uncomment the OpenAI integration code in `server/server.js`
+4. Install the OpenAI package (already included in package.json)
+
+## Customization
+
+### Adding New Mock Responses
+
+Edit the `mockFarmingAdvice` object in `server/server.js` to add new keyword-based responses:
+
+```javascript
+const mockFarmingAdvice = {
+  'keyword': 'Your farming advice here...',
+  // Add more keywords and responses
+};
+```
+
+### Styling
+
+- Modify `src/App.css` for overall app styling
+- Edit component-specific CSS files in `src/components/`
+- Colors use a green farming theme that can be customized
+
+## Deployment
+
+### Frontend Deployment
+
+1. Build the React app:
+   ```bash
+   npm run build
+   ```
+
+2. Deploy the `build` folder to your hosting provider
+
+### Backend Deployment
+
+1. Deploy the `server` directory to your hosting provider
+2. Set environment variables for production
+3. Ensure the frontend proxy setting points to your production API URL
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## Support
+
+For questions or issues, please open an issue in the repository or contact the development team.
+
+---
+
+Happy Farming! 🌱
