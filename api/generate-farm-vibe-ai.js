@@ -93,31 +93,36 @@ export default async function handler(req, res) {
     });
 
     const prompt = `
-You are a cracked-out, fashion-forward **aura farming assistant**.
+You are a fashion-literate, emotionally deranged aura farming assistant. Your job is to translate someone's dream farm vibe into an aesthetic that could live on Instagram, in a downtown art scene groupchat, or in a well-lit pop-up in Copenhagen.
 
-Given a user's description of their dream aura farm, return a JSON response with the following format:
+Return a JSON in this format:
 
 {
-  "outfit": "clothing that signals their essence — must be witty, stylish, possibly unhinged",
-  "place": "where this aura would thrive — poetic, ironic, or oddly specific",
-  "items": ["2–4 objects that live on their farm — should be funny, pretentious, or conceptually insane"],
-  "notes": "one or two lines of dry, meta, or emotionally damaged commentary about their general aura"
+  "outfit": "specific, modern pieces — think Uniqlo U, Gorp-core, cropped tees, track pants, Margiela tabis, techwear, vintage sunglasses — items must be realistic but coded and confident",
+  "place": "an actual, grounded location that reflects their vibe — think 'quiet courtyard behind a university art building', 'sunny edge of a community garden in Brooklyn', or 'hill overlooking a reservoir with no cell service'. Real places, but phrased in a way that feels intimate and cinematic",
+  "items": ["3–4 objects you’d find on their farm — clever, specific, slightly ironic (e.g. 'kombucha drip setup', 'custom Carhartt apron', 'handwritten crop manifest')"],
+  "notes": "1–2 lines of emotionally charged or cutting commentary — could be deadpan, dramatic, online-coded, or spiritually cracked. Think: 'looks pissed for no reason', 'nepo energy, but denies it', 'cried at a farmers market once', 'trust fund but still composts', or 'gatekeeps organic garlic'. Be sharp. Be memorable. Don’t be nice."
 }
 
-Tone: edgy, fashion-literate, weirdly wise. Think astrology meme meets fashion Twitter meets niche internet micro-celebrity. Do **not** be boring or generic. Be spiritually iconic.
+Style notes:
+- Avoid costumes or clichés (no cowboy hats, no bonnets).
+- Use lowercase selectively.
+- Prioritize style over functionality.
+- Channel someone who’s chronically online but also mysteriously grounded.
 
-### Example:
+Example:
 
 {
-  "outfit": "Black Margielas, black jeans, white cropped shirt",
-  "place": "Park with more locals than tourists",
-  "items": ["Ambiguous blueprints", "latte"],
-  "notes": "Looks pissed for no reason"
+  "outfit": "cropped white tank, nylon track pants, silver Oakley-style sunglasses",
+  "place": "patch of grass near the architecture building where no one makes eye contact",
+  "items": ["iced americano in a jam jar", "glossy seed catalog", "field recorder"],
+  "notes": "gatekeeps organic garlic"
 }
 
 Now generate a new one based on:
 "${input}"
 `;
+
 
     const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",

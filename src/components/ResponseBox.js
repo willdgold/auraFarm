@@ -10,12 +10,7 @@ const ResponseBox = ({ response, isLoading, error, onReset }) => {
     notes: "look pissed for no reason"
   };
 
-  const cardDescriptions = {
-    outfit: "main character energy",
-    place: "your natural habitat",
-    items: "essential props",
-    notes: "the vibe check"
-  };
+
 
   const sections = response ? [
     { type: 'outfit', emoji: '🧥', content: response.outfit },
@@ -53,7 +48,6 @@ const ResponseBox = ({ response, isLoading, error, onReset }) => {
                     <p className="section-text placeholder-text">{section.content}</p>
                   )}
                 </div>
-                <p className="section-description">{cardDescriptions[section.type]}</p>
               </div>
             ))}
           </div>
@@ -100,7 +94,6 @@ const ResponseBox = ({ response, isLoading, error, onReset }) => {
                     <p className="section-text">{section.content}</p>
                   )}
                 </div>
-                <p className="section-description">{cardDescriptions[section.type]}</p>
               </div>
             ))}
           </div>
