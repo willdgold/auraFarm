@@ -1,6 +1,4 @@
-const OpenAI = require('openai');
-
-// Fallback farming aesthetics database
+// Farming aesthetics database
 const farmingVibes = {
   cottage: {
     outfit: "Black Margielas, black jeans, white cropped shirt",
@@ -34,10 +32,11 @@ const farmingVibes = {
   }
 };
 
-// Fallback analyze function
+// Analyze input and match to farming vibe
 function analyzeInput(input) {
   const lowerInput = input.toLowerCase();
   
+  // Keywords for different farming vibes
   const keywords = {
     cottage: ['cottage', 'cozy', 'traditional', 'chickens', 'herbs', 'simple', 'peaceful', 'rustic charm'],
     modern: ['modern', 'technology', 'sustainable', 'efficient', 'clean', 'minimalist', 'smart', 'innovation'],
@@ -48,6 +47,7 @@ function analyzeInput(input) {
   
   let scores = {};
   
+  // Calculate scores for each vibe
   Object.keys(keywords).forEach(vibe => {
     scores[vibe] = 0;
     keywords[vibe].forEach(keyword => {
@@ -57,7 +57,8 @@ function analyzeInput(input) {
     });
   });
   
-  let bestVibe = 'cottage';
+  // Find the vibe with the highest score
+  let bestVibe = 'cottage'; // default
   let highestScore = 0;
   
   Object.keys(scores).forEach(vibe => {
@@ -82,77 +83,17 @@ export default async function handler(req, res) {
     if (!input || input.trim() === '') {
       return res.status(400).json({ error: 'Input is required' });
     }
-
-    if (!process.env.OPENAI_API_KEY) {
-      return res.status(500).json({ error: 'OpenAI API key not configured' });
-    }
-
-    // Initialize OpenAI
-    const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
-
-    const prompt = `
-You are a cracked-out, fashion-forward **aura farming assistant**.
-
-Given a user's description of their dream aura farm, return a JSON response with the following format:
-
-{
-  "outfit": "clothing that signals their essence — must be witty, stylish, possibly unhinged",
-  "place": "where this aura would thrive — poetic, ironic, or oddly specific",
-  "items": ["2–4 objects that live on their farm — should be funny, pretentious, or conceptually insane"],
-  "notes": "one or two lines of dry, meta, or emotionally damaged commentary about their general aura"
-}
-
-Tone: edgy, fashion-literate, weirdly wise. Think astrology meme meets fashion Twitter meets niche internet micro-celebrity. Do **not** be boring or generic. Be spiritually iconic.
-
-### Example:
-
-{
-  "outfit": "Black Margielas, black jeans, white cropped shirt",
-  "place": "Park with more locals than tourists",
-  "items": ["Ambiguous blueprints", "latte"],
-  "notes": "Looks pissed for no reason"
-}
-
-Now generate a new one based on:
-"${input}"
-`;
-
-    const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "system",
-          content: "You are a farming aesthetic expert who creates detailed, inspiring farming lifestyle recommendations."
-        },
-        {
-          role: "user",
-          content: prompt
-        }
-      ],
-      max_tokens: 500,
-      temperature: 0.7,
-    });
-
-    const aiResponse = completion.choices[0].message.content;
     
-    try {
-      const parsedResponse = JSON.parse(aiResponse);
-      res.json(parsedResponse);
-    } catch (parseError) {
-      // Fallback to original endpoint if AI response isn't valid JSON
-      const vibeType = analyzeInput(input);
-      const fallbackResponse = farmingVibes[vibeType];
-      res.json(fallbackResponse);
-    }
+    const vibeType = analyzeInput(input);
+    const response = farmingVibes[vibeType];
+    
+    // Add a small delay to simulate processing (like in original)
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    
+    res.json(response);
     
   } catch (error) {
-    console.error('OpenAI Error:', error);
-    
-    // Fallback to original logic if OpenAI fails
-    const vibeType = analyzeInput(input);
-    const fallbackResponse = farmingVibes[vibeType];
-    res.json(fallbackResponse);
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 } 
