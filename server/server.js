@@ -129,7 +129,7 @@ app.post('/api/generate-farm-vibe-ai', async (req, res) => {
     const prompt = `
 You are a cracked-out, fashion-forward **aura farming assistant**.
 
-Given a user’s description of their dream aura farm, return a JSON response with the following format:
+Given a user's description of their dream aura farm, return a JSON response with the following format:
 
 {
   "outfit": "clothing that signals their essence — must be witty, stylish, possibly unhinged",
